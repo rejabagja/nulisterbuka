@@ -1,14 +1,12 @@
 'use client';
 
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
 import { ClipboardPen } from 'lucide-react';
 import Link from 'next/link';
+import FormRegister from './form-register';
 
 interface RegisterProps {
   heading?: string;
   subheading?: string;
-  buttonText?: string;
   googleText?: string;
   signinText?: string;
   signinUrl?: string;
@@ -17,7 +15,6 @@ interface RegisterProps {
 const Register = ({
   heading = 'Register',
   subheading = 'Daftarkan akun kamu',
-  buttonText = 'Register',
   signinText = 'Already have an account?',
   signinUrl = '',
 }: RegisterProps) => {
@@ -40,27 +37,9 @@ const Register = ({
                 <p className="text-sm text-muted-foreground">{subheading}</p>
               )}
             </div>
-            <Input
-              type="text"
-              placeholder="Username"
-              className="text-sm"
-              required
-            />
-            <Input
-              type="email"
-              placeholder="Email"
-              className="text-sm"
-              required
-            />
-            <Input
-              type="password"
-              placeholder="Password"
-              className="text-sm"
-              required
-            />
-            <Button type="submit" className="w-full">
-              {buttonText}
-            </Button>
+            <div className="w-full">
+              <FormRegister />
+            </div>
           </div>
           <div className="text-muted-foreground flex justify-center gap-1 text-sm">
             <p>{signinText}</p>
