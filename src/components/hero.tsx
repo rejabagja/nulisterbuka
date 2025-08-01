@@ -16,7 +16,7 @@ export const Hero = () => (
           </h1>
           <p className="text-lg md:text-xl leading-relaxed tracking-tight text-muted-foreground max-w-2xl text-center">
             Tulis apa saja, temukan inspirasi, dan baca beragam perspektif tanpa
-            batasan. Di sini, suaramu berarti.
+            batasan. Di sini, tulisanmu berarti.
           </p>
         </div>
         <div className="flex flex-row gap-3">
@@ -25,8 +25,10 @@ export const Hero = () => (
               Jelajahi Tulisan <Compass className="w-4 h-4" />
             </Link>
           </Button>
-          <Button size="lg" className="gap-4">
-            Mulai Menulis <MoveRight className="w-4 h-4" />
+          <Button size="lg" className="gap-4" asChild>
+            <Link href="/dashboard/post/create">
+              Mulai Menulis <MoveRight className="w-4 h-4" />
+            </Link>
           </Button>
         </div>
       </div>
