@@ -25,8 +25,10 @@ export const Hero = () => (
               Jelajahi Tulisan <Compass className="w-4 h-4" />
             </Link>
           </Button>
-          <Button size="lg" className="gap-4">
-            Mulai Menulis <MoveRight className="w-4 h-4" />
+          <Button size="lg" className="gap-4" asChild>
+            <Link href="/dashboard/post/create">
+              Mulai Menulis <MoveRight className="w-4 h-4" />
+            </Link>
           </Button>
         </div>
       </div>

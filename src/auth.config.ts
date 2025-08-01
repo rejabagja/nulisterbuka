@@ -44,6 +44,13 @@ export const authConfig = {
       if (isLoggedIn && ['/signin', '/signup'].includes(nextUrl.pathname)) {
         return Response.redirect(new URL('/', nextUrl));
       }
+      if (
+        !isLoggedIn &&
+        (nextUrl.pathname === '/dashboard' ||
+          nextUrl.pathname.startsWith('/dashboard'))
+      ) {
+        return Response.redirect(new URL('/signin', nextUrl));
+      }
       return true;
     },
   },
