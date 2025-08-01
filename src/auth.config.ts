@@ -49,7 +49,7 @@ export const authConfig = {
         (nextUrl.pathname === '/dashboard' ||
           nextUrl.pathname.startsWith('/dashboard'))
       ) {
-        return Response.redirect(new URL('/signin', nextUrl));
+        return false;
       }
       return true;
     },
