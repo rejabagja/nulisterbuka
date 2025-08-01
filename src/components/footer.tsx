@@ -95,7 +95,7 @@ const Footer = () => {
               reserved.
             </div>
           </div>
-          <div className="grid lg:grid-cols-3 gap-8 items-start">
+          <div className="grid lg:grid-cols-3 gap-4 lg:gap-8 items-start">
             {navigationItems.map((item) => (
               <div
                 key={item.title}
@@ -107,7 +107,7 @@ const Footer = () => {
                       href={item.href}
                       className="flex justify-between items-center"
                     >
-                      <span className="text-base hover:underline underline-offset-4">
+                      <span className="text-base text-background/80 hover:underline underline-offset-4">
                         {item.title}
                       </span>
                     </Link>

@@ -63,7 +63,7 @@ export default function BlogPage() {
   return (
     <div>
       <section className="py-32">
-        <div className="container flex flex-col items-center gap-16">
+        <div className="container flex flex-col items-center gap-8">
           <div className="text-center">
             <Badge variant="secondary" className="mb-6">
               temukan inspirasi terkini
@@ -96,7 +96,7 @@ export default function BlogPage() {
                   </p>
                 </CardContent>
                 <CardFooter>
-                  <span className="text-sm">
+                  <span className="text-sm text-muted-foreground">
                     {new Date(post.publishedAt).toLocaleString('id-ID', {
                       hour: 'numeric',
                       minute: 'numeric',

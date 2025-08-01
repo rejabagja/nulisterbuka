@@ -16,7 +16,7 @@ export const Hero = () => (
           </h1>
           <p className="text-lg md:text-xl leading-relaxed tracking-tight text-muted-foreground max-w-2xl text-center">
             Tulis apa saja, temukan inspirasi, dan baca beragam perspektif tanpa
-            batasan. Di sini, suaramu berarti.
+            batasan. Di sini, tulisanmu berarti.
           </p>
         </div>
         <div className="flex flex-row gap-3">

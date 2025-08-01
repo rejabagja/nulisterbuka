@@ -44,7 +44,7 @@ export default function FormLogin() {
     if (loginStatus?.status === 'success') {
       setTimeout(() => {
         update();
-        router.push(callbackURL);
+        router.replace(callbackURL);
       }, 1000);
     }
   }, [loginStatus, callbackURL, update, router]);

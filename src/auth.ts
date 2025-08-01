@@ -26,7 +26,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
               return null;
             }
           }
-          console.log('User authenticated:', user);
           return user;
         } catch (error) {
           console.error('Error during authentication:', error);
