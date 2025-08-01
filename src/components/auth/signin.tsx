@@ -2,6 +2,7 @@
 
 import { LogIn } from 'lucide-react';
 import Link from 'next/link';
+import { Suspense } from 'react';
 import FormLogin from './form-login';
 
 interface LoginProps {
@@ -38,7 +39,9 @@ const Login = ({
               )}
             </div>
             <div className="w-full">
-              <FormLogin />
+              <Suspense fallback={<div>Loading...</div>}>
+                <FormLogin />
+              </Suspense>
             </div>
           </div>
           <div className="text-muted-foreground flex justify-center gap-1 text-sm">
