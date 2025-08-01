@@ -91,7 +91,9 @@ export default function BlogPage() {
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <p className="line-clamp-4">{post.content}</p>
+                  <p className="line-clamp-3 text-muted-foreground">
+                    {post.content}
+                  </p>
                 </CardContent>
                 <CardFooter>
                   <span className="text-sm">

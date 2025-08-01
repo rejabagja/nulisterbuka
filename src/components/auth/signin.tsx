@@ -1,14 +1,12 @@
 'use client';
 
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
 import { LogIn } from 'lucide-react';
 import Link from 'next/link';
+import FormLogin from './form-login';
 
 interface LoginProps {
   heading?: string;
   subheading?: string;
-  buttonText?: string;
   googleText?: string;
   signupText?: string;
   signupUrl?: string;
@@ -17,7 +15,6 @@ interface LoginProps {
 const Login = ({
   heading = 'Login',
   subheading = 'Masuk ke akun kamu',
-  buttonText = 'Login',
   signupText = 'Need an account?',
   signupUrl = '',
 }: LoginProps) => {
@@ -40,21 +37,9 @@ const Login = ({
                 <p className="text-sm text-muted-foreground">{subheading}</p>
               )}
             </div>
-            <Input
-              type="email"
-              placeholder="Email"
-              className="text-sm"
-              required
-            />
-            <Input
-              type="password"
-              placeholder="Password"
-              className="text-sm"
-              required
-            />
-            <Button type="submit" className="w-full">
-              {buttonText}
-            </Button>
+            <div className="w-full">
+              <FormLogin />
+            </div>
           </div>
           <div className="text-muted-foreground flex justify-center gap-1 text-sm">
             <p>{signupText}</p>

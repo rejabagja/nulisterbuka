@@ -2,6 +2,8 @@
 
 import bcrypt from 'bcrypt';
 import { prisma, Prisma } from '@/lib/prisma';
+import { signIn } from '@/auth';
+import { AuthError } from 'next-auth';
 
 interface RegisterUserPayload {
   username: string;
@@ -9,13 +11,13 @@ interface RegisterUserPayload {
   password: string;
 }
 
-export type RegisterUserResponse = {
+export type AuthUserResponse = {
   status: 'success' | 'fail' | undefined;
   message: string;
 };
 export async function registerUser(
   payload: RegisterUserPayload
-): Promise<RegisterUserResponse> {
+): Promise<AuthUserResponse> {
   const { username, email, password } = payload;
 
   try {
@@ -46,6 +48,37 @@ export async function registerUser(
     return {
       status: 'fail',
       message: 'Registrasi gagal, terjadi kesalahan',
+    };
+  }
+}
+
+export async function authenticateUser(
+  payload: Omit<RegisterUserPayload, 'username'> & { redirectTo?: string }
+): Promise<AuthUserResponse> {
+  try {
+    const { email, password } = payload;
+    await signIn('credentials', {
+      email,
+      password,
+      redirect: false,
+    });
+    return {
+      status: 'success',
+      message: 'Login berhasil, mengarahkan ke halaman utama...',
+    };
+  } catch (error) {
+    if (error instanceof AuthError) {
+      console.error('Error during login:', error.type, error.message);
+      if (error.type === 'CredentialsSignin') {
+        return {
+          status: 'fail',
+          message: 'Email atau password salah',
+        };
+      }
+    }
+    return {
+      status: 'fail',
+      message: 'Login gagal, terjadi kesalahan',
     };
   }
 }

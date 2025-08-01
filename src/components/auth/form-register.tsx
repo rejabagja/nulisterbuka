@@ -4,7 +4,7 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { useState } from 'react';
-import { registerUser, RegisterUserResponse } from '@/actions/auth';
+import { registerUser, AuthUserResponse } from '@/actions/auth';
 import { cn } from '@/lib/utils';
 import { Alert, AlertTitle } from '@/components/ui/alert';
 import { CheckCircle2Icon, AlertCircleIcon } from 'lucide-react';
@@ -16,7 +16,7 @@ type Inputs = {
 };
 
 export default function FormRegister() {
-  const [registerStatus, setRegisterStatus] = useState<RegisterUserResponse>({
+  const [registerStatus, setRegisterStatus] = useState<AuthUserResponse>({
     status: undefined,
     message: '',
   });

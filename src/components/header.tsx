@@ -6,6 +6,9 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
+import SignoutButton from './auth/signout-button';
+import { LogIn, LogOut } from 'lucide-react';
+import { Session } from 'next-auth';
 
 interface NavigationItem {
   title: string;
@@ -14,7 +17,7 @@ interface NavigationItem {
   items?: { title: string; href: string }[];
 }
 
-const Header = () => {
+const Header = ({ session }: { session: Session | null }) => {
   const navigationItems: NavigationItem[] = [
     {
       title: 'Home',
@@ -62,9 +65,19 @@ const Header = () => {
           </Link>
         </div>
         <div className="flex justify-end w-full gap-4">
-          <Button variant="outline" asChild>
-            <Link href="/signin">Sign in</Link>
-          </Button>
+          {session ? (
+            <SignoutButton variant="outline">
+              <LogOut />
+              Sign out
+            </SignoutButton>
+          ) : (
+            <Button variant="outline" asChild>
+              <Link href="/signin">
+                <LogIn />
+                Sign in
+              </Link>
+            </Button>
+          )}
         </div>
         <div className="flex w-12 shrink lg:hidden items-end justify-end">
           <Button variant="ghost" onClick={() => setOpen(!isOpen)}>
