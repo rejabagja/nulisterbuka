@@ -24,10 +24,15 @@ export default function SignoutButton({
   const handleSignout = async () => {
     try {
       toast('Keluar akun...', {
-        duration: 1500,
+        id: 'signout-process',
         position: 'top-center',
       });
-      await signOut({ callbackUrl: '/signin' });
+      await signOut({ callbackUrl: '/signin' }).then(() => {
+        toast.dismiss('signout-process');
+        toast.success('Berhasil keluar akun', {
+          position: 'top-center',
+        });
+      });
     } catch (error) {
       toast.error('Failed to sign out', {
         position: 'top-center',

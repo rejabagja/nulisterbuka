@@ -19,7 +19,7 @@ export default function DashboardLayout({
             <Link
               href="/"
               className="text-xl font-semibold text-gray-900 font-serif"
-              title="go to Home"
+              title="Kembali ke halaman utama"
             >
               nulisterbuka.
             </Link>
@@ -60,11 +60,11 @@ export default function DashboardLayout({
             <div className="md:hidden border-t border-gray-200">
               <div className="px-2 pt-2 pb-3 space-y-1">
                 <Link
-                  href="/dashboard/mypost"
+                  href="/dashboard/post"
                   className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50 rounded-md"
                   onClick={() => setIsMenuOpen(false)}
                 >
-                  My Posts
+                  Posts
                 </Link>
                 <Link
                   href="/dashboard/profile"

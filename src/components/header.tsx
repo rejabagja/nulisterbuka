@@ -47,7 +47,7 @@ const Header = ({ session }: { session: Session | null }) => {
   const [isOpen, setOpen] = useState(false);
   const pathname = usePathname();
   return (
-    <header className="w-full z-40 fixed top-0 left-0 bg-background">
+    <header className="w-full z-40 fixed top-0 left-0 bg-background shadow-sm">
       <div className="container relative mx-auto min-h-20 flex gap-4 flex-row lg:grid lg:grid-cols-3 items-center">
         <div className="justify-start items-center gap-4 lg:flex hidden flex-row">
           {navigationItems

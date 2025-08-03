@@ -6,7 +6,7 @@ import React from 'react';
 
 export default function PostCreatePage() {
   return (
-    <div className="pt-16 min-h-screen">
+    <div className="pt-16 min-h-screen min-w-lg bg-background overflow-x-auto">
       <div className="container py-10">
         <div>
           <Button className="mb-4 rounded-[3px]" variant={'ghost'} asChild>
