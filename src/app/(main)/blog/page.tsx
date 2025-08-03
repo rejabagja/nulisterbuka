@@ -1,22 +1,11 @@
+import BlogList from '@/components/blog/blog-list';
 import { Badge } from '@/components/ui/badge';
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card';
 import { prisma } from '@/lib/prisma';
-import Link from 'next/link';
 
 export default async function BlogPage() {
   const blogPosts = await prisma.post.findMany({
     include: {
       author: true,
-    },
-    omit: {
-      id: true,
     },
     orderBy: {
       updatedAt: 'desc',
@@ -38,50 +27,7 @@ export default async function BlogPage() {
               baru yang menginspirasi.
             </p>
           </div>
-          <div className="grid gap-6 md:grid-cols-2">
-            {blogPosts.map((post) => (
-              <Card
-                key={post.slug}
-                className="hover:shadow-md transition-all gap-4"
-              >
-                <CardHeader>
-                  <CardTitle
-                    className="text-xl font-semibold line-clamp-2"
-                    title={post.title}
-                  >
-                    <Link
-                      href={`/blog/${post.slug}`}
-                      className="cursor-pointer hover:underline underline-offset-4"
-                    >
-                      {post.title}
-                    </Link>
-                  </CardTitle>
-                  <CardDescription className="text-sm text-muted-foreground">
-                    @{post.author.username}
-                  </CardDescription>
-                </CardHeader>
-                <CardContent className="flex-1">
-                  <p className="line-clamp-3 text-muted-foreground text-sm">
-                    {post.content.replace(/<[^>]+>/g, '')}
-                  </p>
-                </CardContent>
-                <CardFooter>
-                  <span className="inline-block text-muted-foreground text-sm">
-                    Disukai {post.likedBy.length}
-                  </span>
-                  <span className="text-sm text-muted-foreground inline-block ml-auto">
-                    {new Date(post.updatedAt).toLocaleString('id-ID', {
-                      hour: 'numeric',
-                      minute: 'numeric',
-                      year: 'numeric',
-                      month: 'long',
-                      day: 'numeric',
-                    })}
-                  </span>
-                </CardFooter>
-              </Card>
-            ))}
-          </div>
+          <BlogList posts={blogPosts} />
         </div>
       </section>
     </div>

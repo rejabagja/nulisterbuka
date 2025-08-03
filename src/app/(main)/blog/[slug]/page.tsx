@@ -1,4 +1,4 @@
-import Post from '@/components/post';
+import BlogPost from '@/components/blog/blog-post';
 import { prisma } from '@/lib/prisma';
 import { notFound } from 'next/navigation';
 
@@ -20,7 +20,7 @@ export default async function SingleBlogPage({
   return (
     <div className="pt-20 min-h-screen w-full">
       <div className="container bg-slate-50">
-        <Post post={post} />
+        <BlogPost post={post} />
       </div>
     </div>
   );
