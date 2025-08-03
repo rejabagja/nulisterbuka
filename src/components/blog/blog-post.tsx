@@ -1,20 +1,30 @@
 'use client';
 
 import Link from 'next/link';
-import RichTextEditor from './rich-text-editor';
-import { Button } from './ui/button';
-import { ArrowLeft } from 'lucide-react';
+import RichTextEditor from '@/components/rich-text-editor';
+import { Button } from '@/components/ui/button';
+import { ArrowLeft, PencilIcon } from 'lucide-react';
+import { useSession } from 'next-auth/react';
 
-export default function Post({ post }: any) {
+export default function BlogPost({ post }: any) {
+  const { data: session } = useSession();
+
   return (
     <div className="min-h-[60vh] py-5 rounded-xl">
-      <div className="mb-6 flex">
+      <div className="mb-6 flex justify-between">
         <Button className="" variant={'ghost'} asChild>
           <Link href="/blog">
             <ArrowLeft className="size-4" />
             Kembali ke Blog
           </Link>
         </Button>
+        {session?.user?.id === post.author.id && (
+          <Button size={'sm'} variant={'outline'} asChild>
+            <Link href={`/dashboard/post/${post.slug}/edit`}>
+              <PencilIcon className="size-4" /> Edit Post
+            </Link>
+          </Button>
+        )}
       </div>
       <header className="space-y-2 p-4 bg-slate-100 rounded-xl shadow mb-6">
         <h1 className="text-3xl font-semibold">{post.title}</h1>

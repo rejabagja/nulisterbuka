@@ -8,7 +8,7 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import Link from 'next/link';
-import { ClipboardPen } from 'lucide-react';
+import { ArrowLeft, ClipboardPen } from 'lucide-react';
 import { prisma } from '@/lib/prisma';
 import { auth } from '@/auth';
 import { Badge } from '@/components/ui/badge';
@@ -30,15 +30,23 @@ export default async function MyPostPage() {
           <h1 className="text-2xl font-bold">My Post</h1>
           <p className="text-gray-600 text-lg">Ini adalah kumpulan tulisanku</p>
           <hr className="my-4" />
-          <Button className="mb-4 rounded-[3px]" asChild>
-            <Link href="/dashboard/post/create">
-              <ClipboardPen className="size-4" />
-              Buat Post
-            </Link>
-          </Button>
+          <div className="flex space-x-4">
+            <Button className="mb-4 rounded-[3px]" variant={'outline'} asChild>
+              <Link href="/blog">
+                <ArrowLeft className="size-4" />
+                Kembali ke Blog
+              </Link>
+            </Button>
+            <Button className="mb-4 rounded-[3px]" asChild>
+              <Link href="/dashboard/post/create">
+                <ClipboardPen className="size-4" />
+                Buat Post
+              </Link>
+            </Button>
+          </div>
         </div>
         <div className="py-5">
-          <div className="grid gap-6 md:grid-cols-2 w-full max-w-5xl">
+          <div className="grid gap-6 md:grid-cols-2 w-full">
             {blogPosts.length > 0 ? (
               blogPosts.map((post) => (
                 <Card
