@@ -51,6 +51,29 @@
   body {
     @apply font-sans;
   }
+
+  h1 {
+    @apply text-2xl;
+  }
+
+  h2 {
+    @apply text-xl;
+  }
+
+  h3 {
+    @apply text-lg;
+  }
+
+  pre {
+    @apply bg-black/80 rounded-sm text-white font-mono my-6 py-3 px-4;
+  }
+
+  pre code {
+    background: none;
+    color: inherit;
+    font-size: 0.8rem;
+    padding: 0;
+  }
 }
 
 :root {

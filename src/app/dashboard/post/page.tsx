@@ -11,12 +11,16 @@ import Link from 'next/link';
 import { ClipboardPen } from 'lucide-react';
 import { prisma } from '@/lib/prisma';
 import { auth } from '@/auth';
+import { Badge } from '@/components/ui/badge';
 
 export default async function MyPostPage() {
   const session = await auth();
   const blogPosts = await prisma.post.findMany({
     where: {
       authorId: session?.user?.id,
+    },
+    orderBy: {
+      updatedAt: 'desc',
     },
   });
   return (
@@ -33,28 +37,55 @@ export default async function MyPostPage() {
             </Link>
           </Button>
         </div>
-        <div className="py-10">
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 w-full max-w-5xl">
+        <div className="py-5">
+          <div className="grid gap-6 md:grid-cols-2 w-full max-w-5xl">
             {blogPosts.length > 0 ? (
               blogPosts.map((post) => (
-                <Card key={post.id} className="hover:shadow-xl transition-all">
-                  <CardHeader className="">
+                <Card
+                  key={post.id}
+                  className="hover:shadow-md transition-all gap-4"
+                >
+                  <CardHeader>
                     <CardTitle
                       className="text-xl font-semibold line-clamp-2"
                       title={post.title}
                     >
-                      {post.title}
+                      <Link
+                        href={`/dashboard/post/${post.slug}/edit`}
+                        className="hover:underline underline-offset-4"
+                      >
+                        {post.title}
+                      </Link>
                     </CardTitle>
                     <CardDescription className="text-sm text-muted-foreground">
-                      {post.tags.join(', ')}
+                      {post.tags.map((tag) => (
+                        <Badge
+                          key={tag}
+                          className="mr-2 bg-slate-50"
+                          variant={'outline'}
+                        >
+                          {tag}
+                        </Badge>
+                      ))}
                     </CardDescription>
                   </CardHeader>
-                  <CardContent>
-                    <p className="line-clamp-4">{post.content}</p>
+                  <CardContent className="flex-1">
+                    <p className="line-clamp-3 text-muted-foreground text-sm">
+                      {post.content.replace(/<[^>]+>/g, '')}
+                    </p>
                   </CardContent>
                   <CardFooter>
-                    <span className="text-sm">
-                      {new Date(post.createdAt).toLocaleString('id-ID', {
+                    <p className="text-sm text-muted-foreground">
+                      Disukai{' '}
+                      <span className="font-semibold">
+                        {post.likedBy.length}
+                      </span>{' '}
+                    </p>
+                    <span className="text-sm text-muted-foreground font-medium inline-block ml-auto">
+                      Diperbarui{' '}
+                      {new Date(post.updatedAt).toLocaleString('id-ID', {
+                        hour: 'numeric',
+                        minute: 'numeric',
                         year: 'numeric',
                         month: 'long',
                         day: 'numeric',

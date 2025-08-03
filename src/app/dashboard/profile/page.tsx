@@ -6,7 +6,7 @@ export default async function ProfilePage() {
   const session = await auth();
   return (
     <div className="pt-16 h-screen">
-      <div className="container py-20 flex justify-center">
+      <div className="container py-10 flex justify-center min-w-sm">
         <Card className="w-full max-w-xl">
           <CardHeader>
             <CardTitle className="text-2xl text-center">
