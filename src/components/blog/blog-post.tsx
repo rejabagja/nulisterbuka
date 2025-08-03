@@ -3,11 +3,74 @@
 import Link from 'next/link';
 import RichTextEditor from '@/components/rich-text-editor';
 import { Button } from '@/components/ui/button';
-import { ArrowLeft, PencilIcon } from 'lucide-react';
+import { ArrowLeft, PencilIcon, HeartIcon } from 'lucide-react';
 import { useSession } from 'next-auth/react';
+import { useState } from 'react';
+import { toast } from 'sonner';
 
 export default function BlogPost({ post }: any) {
   const { data: session } = useSession();
+  const [isLiked, setIsLiked] = useState<boolean>(
+    post.likedBy.includes(session?.user?.id)
+  );
+  const [likeCount, setLikeCount] = useState<number>(post.likedBy.length);
+  const toggleLike = async () => {
+    if (!session) {
+      toast.error('Kamu harus login terlebih dahulu', {
+        position: 'top-center',
+      });
+      return;
+    }
+    if (isLiked) {
+      try {
+        setIsLiked(false);
+        setLikeCount(likeCount - 1);
+        const response = await fetch(`/api/likes`, {
+          body: JSON.stringify({
+            postId: post.id,
+            userId: session?.user?.id,
+            action: 'unlike',
+          }),
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          method: 'POST',
+        });
+        const { status, message } = await response.json();
+        if (status === 'fail') {
+          setIsLiked(true);
+          setLikeCount(likeCount + 1);
+          toast.error(message, { position: 'top-center' });
+        }
+      } catch (error) {
+        console.error('Error unliking post:', error);
+      }
+    } else {
+      try {
+        setIsLiked(true);
+        setLikeCount(likeCount + 1);
+        const response = await fetch(`/api/likes`, {
+          body: JSON.stringify({
+            postId: post.id,
+            userId: session?.user?.id,
+            action: 'like',
+          }),
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          method: 'POST',
+        });
+        const { status, message } = await response.json();
+        if (status === 'fail') {
+          setIsLiked(false);
+          setLikeCount(likeCount - 1);
+          toast.error(message, { position: 'top-center' });
+        }
+      } catch (error) {
+        console.error('Error liking post:', error);
+      }
+    }
+  };
 
   return (
     <div className="min-h-[60vh] py-5 rounded-xl">
@@ -42,6 +105,23 @@ export default function BlogPost({ post }: any) {
             year: 'numeric',
           })}
         </p>
+        <div className="flex items-center">
+          <span className="inline-block text-muted-foreground text-sm mr-2">
+            Disukai {likeCount}
+          </span>
+          <Button
+            className="ml-auto border-0 shadow-none"
+            variant={isLiked ? 'destructive' : 'outline'}
+            size={'icon'}
+            onClick={toggleLike}
+          >
+            {isLiked ? (
+              <HeartIcon className="size-4" />
+            ) : (
+              <HeartIcon className="size-4" />
+            )}
+          </Button>
+        </div>
         <div>
           {post.tags.map((tag: string) => (
             <span
